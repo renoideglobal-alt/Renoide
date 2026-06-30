@@ -84,6 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Renoide is a modern technology agency building websites, apps, AI agents and automation systems that help startups and businesses grow faster.",
       },
       { name: "author", content: "Renoide" },
+      { name: "keywords", content: "Renoide, AI agency India, software development, AI agents, automation, web apps, Arpit Upadhyay, Chitransh Singh Rathaur, Kaustubh Srivastava, AI founder India, automation expert, software architect, product strategist" },
+      { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Renoide — Websites, Apps, AI Agents & Automation" },
       {
         property: "og:description",
@@ -91,12 +93,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "We help startups and businesses launch faster, automate smarter, and scale efficiently through custom software solutions.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image.png" },
+      { property: "og:url", content: "https://renoide.com" },
+      { property: "og:image", content: "https://renoide.com/og-image.png" },
+      { property: "og:site_name", content: "Renoide" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.png" },
+      { name: "twitter:title", content: "Renoide — Websites, Apps, AI Agents & Automation" },
+      { name: "twitter:description", content: "Modern technology agency building websites, apps, AI agents & automation systems for startups and businesses." },
+      { name: "twitter:image", content: "https://renoide.com/og-image.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://renoide.com" },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", type: "image/png", href: "/favicon-32x32.png", sizes: "32x32" },
       { rel: "icon", type: "image/png", href: "/favicon-16x16.png", sizes: "16x16" },
@@ -116,11 +124,86 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://renoide.com/#organization",
+      name: "Renoide",
+      url: "https://renoide.com",
+      logo: "https://renoide.com/renoide-logo.png",
+      description: "Modern technology agency building websites, apps, AI agents and automation systems for startups and businesses worldwide.",
+      foundingLocation: { "@type": "Country", name: "India" },
+      sameAs: [
+        "https://www.linkedin.com/company/renoide/",
+        "https://www.instagram.com/renoideglobal/",
+      ],
+      contactPoint: { "@type": "ContactPoint", email: "hello@renoide.com", contactType: "customer support" },
+      member: [
+        { "@id": "https://renoide.com/founders/arpit-upadhyay" },
+        { "@id": "https://renoide.com/founders/chitransh-singh-rathaur" },
+        { "@id": "https://renoide.com/founders/kaustubh-srivastava" },
+      ],
+    },
+    {
+      "@type": "Person",
+      "@id": "https://renoide.com/founders/arpit-upadhyay",
+      name: "Arpit Upadhyay",
+      jobTitle: "CEO & CTO",
+      description: "Technical architect and CEO/CTO of Renoide. Expert in AI systems, software architecture, intelligent automation, and scalable product strategy.",
+      image: "https://renoide.com/renoide-logo.png",
+      url: "https://renoide.com/founders/arpit-upadhyay",
+      worksFor: { "@id": "https://renoide.com/#organization" },
+      knowsAbout: ["AI Systems", "Software Architecture", "Product Strategy", "Automation Infrastructure", "Business Leadership"],
+      sameAs: [
+        "https://www.linkedin.com/in/arpit-upadhayay-281407381/",
+        "https://www.instagram.com/arpit_upadhyay_77/",
+        "https://github.com/MrAusil",
+      ],
+    },
+    {
+      "@type": "Person",
+      "@id": "https://renoide.com/founders/chitransh-singh-rathaur",
+      name: "Chitransh Singh Rathour",
+      jobTitle: "CFO & COO",
+      description: "CFO & COO of Renoide. Specialist in operations management, financial strategy, process optimization, and organizational scaling.",
+      url: "https://renoide.com/founders/chitransh-singh-rathaur",
+      worksFor: { "@id": "https://renoide.com/#organization" },
+      knowsAbout: ["Operations Management", "Financial Strategy", "Process Optimization", "Business Development", "Organizational Scaling"],
+      sameAs: [
+        "https://www.linkedin.com/in/chitransh-singh-rathour-279b94352/",
+        "https://www.instagram.com/thakur.chitransh.singh/",
+        "https://github.com/ChitranshSingh",
+      ],
+    },
+    {
+      "@type": "Person",
+      "@id": "https://renoide.com/founders/kaustubh-srivastava",
+      name: "Kaustubh Srivastava",
+      jobTitle: "CPO & CMO",
+      description: "CPO & CMO of Renoide. Expert in product design, marketing strategy, user experience, brand development, and customer engagement.",
+      url: "https://renoide.com/founders/kaustubh-srivastava",
+      worksFor: { "@id": "https://renoide.com/#organization" },
+      knowsAbout: ["Product Design", "Marketing Strategy", "User Experience", "Brand Development", "Customer Engagement"],
+      sameAs: [
+        "https://www.linkedin.com/in/kaustubh-srivastava-587a68400/",
+        "https://www.instagram.com/the_aeacus/",
+        "https://github.com/Kaustubhsrivastava35",
+      ],
+    },
+  ],
+};
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
+        />
       </head>
       <body>
         {children}

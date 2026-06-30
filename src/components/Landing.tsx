@@ -883,34 +883,344 @@ function AIShowcase() {
 
 /* ----------------------------- founders ----------------------------- */
 
-const FOUNDERS = [
+/* ----------------------------- founder modal data ----------------------------- */
+
+type FounderData = {
+  name: string;
+  role: string;
+  image: string;
+  desc: string;
+  skills: string[];
+  linkedin: string;
+  instagram: string;
+  github: string;
+  intro: string;
+  /** CSS object-position for the modal hero image — tune per-founder to keep face visible */
+  imagePosition?: string;
+  slug: string;
+};
+
+const FOUNDERS: FounderData[] = [
   {
     name: "Arpit Upadhyay",
     role: "CEO & CTO",
     image: founderArpit,
     desc: "Leads Renoide's technology vision, product innovation, AI strategy and overall company direction.",
-    skills: ["AI Systems", "Software Architecture", "Product Strategy", "Business Leadership"],
-    linkedin: "#",
+    intro:
+      "Arpit is the technical architect behind Renoide\u2019s engineering backbone. Focused on scalable AI systems, software architecture, and intelligent automation, he leads the company\u2019s core innovation and product strategy. His expertise lies in building high-performance digital ecosystems and transforming complex business workflows into automated solutions.",
+    skills: ["AI Systems", "Software Architecture", "Product Strategy", "Automation Infrastructure", "Business Leadership"],
+    linkedin: "https://www.linkedin.com/in/arpit-upadhayay-281407381/",
+    instagram: "https://www.instagram.com/arpit_upadhyay_77/?hl=en",
+    github: "https://github.com/MrAusil",
+    imagePosition: "center 20%",
+    slug: "arpit-upadhyay",
   },
   {
     name: "Chitransh Singh Rathour",
     role: "CFO & COO",
     image: founderChitransh,
     desc: "Oversees business operations, financial planning, execution strategy and organizational growth.",
-    skills: ["Operations Management", "Financial Strategy", "Process Optimization", "Business Development"],
-    linkedin: "#",
+    intro:
+      "Chitransh drives Renoide\u2019s operational excellence and business execution. With a strong focus on financial planning, optimization, and strategic scaling, he manages the business side of innovation while ensuring operational efficiency and sustainable growth.",
+    skills: ["Operations Management", "Financial Strategy", "Process Optimization", "Business Development", "Organizational Scaling"],
+    linkedin: "https://www.linkedin.com/in/chitransh-singh-rathour-279b94352/",
+    instagram: "https://www.instagram.com/thakur.chitransh.singh/?hl=en",
+    github: "https://github.com/ChitranshSingh",
+    imagePosition: "center 15%",
+    slug: "chitransh-singh-rathaur",
   },
   {
     name: "Kaustubh Srivastava",
     role: "CPO & CMO",
     image: founderKaustubh,
     desc: "Leads product experience, design strategy, customer engagement, marketing and brand development.",
-    skills: ["Product Design", "Marketing Strategy", "User Experience", "Brand Development"],
-    linkedin: "#",
+    intro:
+      "Kaustubh leads product vision, user experience, and brand positioning at Renoide. His strength lies in bridging product design with customer psychology, creating engaging digital experiences and strong market identities that resonate with modern businesses.",
+    skills: ["Product Design", "Marketing Strategy", "User Experience", "Brand Development", "Customer Engagement"],
+    linkedin: "https://www.linkedin.com/in/kaustubh-srivastava-587a68400/",
+    instagram: "https://www.instagram.com/the_aeacus/?hl=en",
+    github: "https://github.com/Kaustubhsrivastava35",
+    imagePosition: "center 10%",
+    slug: "kaustubh-srivastava",
   },
 ];
 
+/* ----------------------------- founder modal ----------------------------- */
+
+function FounderModal({ founder, onClose }: { founder: FounderData | null; onClose: () => void }) {
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  // ESC + scroll-lock
+  useEffect(() => {
+    if (!founder) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    closeBtnRef.current?.focus();
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [founder]);
+
+  if (!founder) return null;
+
+  const socialBtn = "modal-scope inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6395ff]";
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        aria-hidden
+        onClick={onClose}
+        style={{
+          position: "fixed", inset: 0, zIndex: 9998,
+          background: "rgba(0,0,0,0.72)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+          cursor: "default",
+          animation: "fm-backdrop-in 0.25s ease both",
+        }}
+      />
+
+      {/* Centering shell */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="founder-modal-name"
+        style={{
+          position: "fixed", inset: 0, zIndex: 9999,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          padding: "1rem",
+          pointerEvents: "none",
+          overflowY: "auto",
+        }}
+      >
+        {/* Skeuomorphic glass panel */}
+        <div
+          className="modal-scope relative w-full max-w-lg rounded-3xl"
+          style={{
+            pointerEvents: "auto",
+            cursor: "default",
+            isolation: "isolate",
+            /* Layered background for depth */
+            background: "linear-gradient(160deg, rgba(18,26,56,0.98) 0%, rgba(10,15,35,0.99) 100%)",
+            /* Bevel: thin bright top-left edge, dark bottom-right */
+            border: "1px solid rgba(255,255,255,0.09)",
+            /* Multi-layer skeuomorphic shadow stack */
+            boxShadow: [
+              /* Outer ambient blue glow */
+              "0 0 80px rgba(26,115,235,0.28)",
+              /* Mid soft shadow */
+              "0 40px 80px rgba(0,0,0,0.75)",
+              /* Tight crisp shadow */
+              "0 8px 24px rgba(0,0,0,0.55)",
+              /* Inner top-left highlight (bevel) */
+              "inset 0 1px 0 rgba(255,255,255,0.12)",
+              /* Inner bottom-right shadow (bevel) */
+              "inset 0 -1px 0 rgba(0,0,0,0.6)",
+            ].join(", "),
+            animation: "fm-panel-in 0.3s cubic-bezier(0.34,1.56,0.64,1) both",
+            marginTop: "auto",
+            marginBottom: "auto",
+          }}
+        >
+          {/* Glass reflection highlight strip */}
+          <div
+            aria-hidden
+            style={{
+              pointerEvents: "none",
+              position: "absolute",
+              top: 0, left: "10%", right: "10%",
+              height: "1px",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
+              borderRadius: "9999px",
+            }}
+          />
+
+          {/* Ambient top glow blob */}
+          <div
+            aria-hidden
+            style={{
+              pointerEvents: "none",
+              position: "absolute",
+              top: "-3rem", left: "50%",
+              transform: "translateX(-50%)",
+              width: "16rem", height: "8rem",
+              borderRadius: "9999px",
+              filter: "blur(48px)",
+              opacity: 0.35,
+              background: "radial-gradient(closest-side, rgba(26,115,235,0.7), transparent)",
+            }}
+          />
+
+          {/* Close button */}
+          <button
+            ref={closeBtnRef}
+            onClick={onClose}
+            aria-label="Close founder profile"
+            style={{ cursor: "pointer" }}
+            className="modal-scope absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-white/60 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6395ff]"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          {/* Hero image — taller container + per-founder position to prevent face cropping */}
+          <div className="relative h-64 overflow-hidden rounded-t-3xl sm:h-80">
+            <img
+              src={founder.image}
+              alt={`Portrait of ${founder.name}`}
+              loading="lazy"
+              draggable={false}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: founder.imagePosition ?? "center 15%",
+                display: "block",
+              }}
+            />
+            {/* Bottom fade into panel */}
+            <div
+              aria-hidden
+              style={{
+                pointerEvents: "none",
+                position: "absolute", bottom: 0, left: 0, right: 0,
+                height: "60%",
+                background: "linear-gradient(to top, rgba(10,15,35,0.98) 0%, transparent 100%)",
+              }}
+            />
+            {/* Role badge floated bottom-left */}
+            <div className="absolute bottom-4 left-5">
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "0.25rem 0.875rem",
+                  borderRadius: "9999px",
+                  fontSize: "0.7rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#7eb8ff",
+                  background: "rgba(26,115,235,0.18)",
+                  border: "1px solid rgba(26,115,235,0.35)",
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                {founder.role}
+              </span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="px-6 pb-7 pt-5">
+            {/* Name */}
+            <h2
+              id="founder-modal-name"
+              className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl"
+            >
+              {founder.name}
+            </h2>
+
+            {/* Divider with glow */}
+            <div
+              aria-hidden
+              style={{
+                marginTop: "1rem",
+                height: "1px",
+                background: "linear-gradient(90deg, rgba(26,115,235,0.6) 0%, rgba(52,199,85,0.3) 50%, transparent 100%)",
+                borderRadius: "9999px",
+              }}
+            />
+
+            {/* Intro text */}
+            <p className="mt-4 text-sm leading-relaxed text-white/65">
+              {founder.intro}
+            </p>
+
+            {/* Skills */}
+            <div className="mt-5">
+              <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                Expertise
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {founder.skills.map((s) => (
+                  <span
+                    key={s}
+                    style={{
+                      display: "inline-block",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "9999px",
+                      fontSize: "0.7rem",
+                      fontWeight: 500,
+                      color: "rgba(255,255,255,0.7)",
+                      background: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07)",
+                    }}
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Social links */}
+            <div className="mt-6 flex items-center gap-3">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">Connect</p>
+              <div className="flex gap-2">
+                <a
+                  href={founder.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  style={{ cursor: "pointer" }}
+                  className={socialBtn + " border-[rgba(10,102,194,0.45)] bg-[rgba(10,102,194,0.12)] text-[#7eb8ff] hover:border-[rgba(10,102,194,0.8)] hover:bg-[rgba(10,102,194,0.25)] hover:shadow-[0_0_16px_rgba(10,102,194,0.4)]"}
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
+                <a
+                  href={founder.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  style={{ cursor: "pointer" }}
+                  className={socialBtn + " border-[rgba(225,48,108,0.45)] bg-[rgba(225,48,108,0.10)] text-[#f472b6] hover:border-[rgba(225,48,108,0.8)] hover:bg-[rgba(225,48,108,0.22)] hover:shadow-[0_0_16px_rgba(225,48,108,0.35)]"}
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a
+                  href={founder.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  style={{ cursor: "pointer" }}
+                  className={socialBtn + " border-white/20 bg-white/5 text-white/70 hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.12)]"}
+                >
+                  <Github className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes fm-backdrop-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes fm-panel-in {
+          from { opacity: 0; transform: scale(0.86) translateY(16px); }
+          to   { opacity: 1; transform: scale(1)   translateY(0); }
+        }
+      `}</style>
+    </>
+  );
+}
+
 function Founders() {
+  const [activeFounder, setActiveFounder] = useState<FounderData | null>(null);
   return (
     <section id="founders" className="border-t border-border bg-background py-24 md:py-32">
       <div className="container-x">
@@ -924,7 +1234,12 @@ function Founders() {
             <article
               key={f.name}
               data-cursor="hover"
-              className="reveal group relative overflow-hidden rounded-3xl border border-border bg-surface-2 p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-ink/60 hover:shadow-[0_50px_90px_-40px_rgba(91,108,255,0.35)]"
+              onClick={() => setActiveFounder(f)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActiveFounder(f); } }}
+              aria-label={`View ${f.name}'s profile`}
+              className="reveal group relative overflow-hidden rounded-3xl border border-border bg-surface-2 p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-ink/60 hover:shadow-[0_50px_90px_-40px_rgba(91,108,255,0.35)] cursor-pointer"
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <span
@@ -945,20 +1260,18 @@ function Founders() {
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <a
-                  href={f.linkedin}
-                  aria-label={`${f.name} on LinkedIn`}
-                  data-cursor="hover"
+                <span
+                  aria-hidden
                   className="absolute right-3 top-3 grid h-10 w-10 translate-y-1 place-items-center rounded-full bg-background/90 text-ink opacity-0 backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground group-hover:translate-y-0 group-hover:opacity-100"
                 >
                   <Linkedin className="h-4 w-4" />
-                </a>
+                </span>
               </div>
               <h3 className="relative font-display text-xl font-semibold text-ink">{f.name}</h3>
               <p className="relative mt-1 text-sm font-medium text-primary">{f.role}</p>
               <p className="relative mt-3 text-sm leading-relaxed text-ink-muted">{f.desc}</p>
               <div className="relative mt-5 flex flex-wrap gap-2">
-                {f.skills.map((s, k) => (
+                {f.skills.slice(0, 4).map((s, k) => (
                   <span
                     key={s}
                     className="rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium text-ink transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/40 group-hover:text-primary"
@@ -970,9 +1283,9 @@ function Founders() {
               </div>
             </article>
           ))}
-
         </div>
       </div>
+      <FounderModal founder={activeFounder} onClose={() => setActiveFounder(null)} />
     </section>
   );
 }
