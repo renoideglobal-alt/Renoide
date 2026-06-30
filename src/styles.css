@@ -212,10 +212,23 @@
   );
 }
 
-/* Premium cursor — hide native cursor on fine pointers */
+/* Premium cursor — hide native cursor on fine pointers (modal excluded via .modal-scope) */
 @media (pointer: fine) {
+  html:not(:has(.modal-scope)), body:not(:has(.modal-scope)) { cursor: none; }
   html, body { cursor: none; }
-  a, button, [role="button"], input, textarea, select, label, [data-cursor] { cursor: none; }
+  a:not(.modal-scope *),
+  button:not(.modal-scope *),
+  [role="button"]:not(.modal-scope *),
+  input:not(.modal-scope *),
+  textarea:not(.modal-scope *),
+  select:not(.modal-scope *),
+  label:not(.modal-scope *),
+  [data-cursor]:not(.modal-scope *) { cursor: none; }
+  /* Inside modal: restore native cursor */
+  .modal-scope { cursor: default; }
+  .modal-scope button,
+  .modal-scope a,
+  .modal-scope [role="button"] { cursor: pointer; }
 }
 
 @media (prefers-reduced-motion: reduce) {
