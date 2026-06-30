@@ -10,33 +10,78 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FoundersKaustubhSrivastavaRouteImport } from './routes/founders/kaustubh-srivastava'
+import { Route as FoundersChitranshSinghRathaurRouteImport } from './routes/founders/chitransh-singh-rathaur'
+import { Route as FoundersArpitUpadhyayRouteImport } from './routes/founders/arpit-upadhyay'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FoundersKaustubhSrivastavaRoute =
+  FoundersKaustubhSrivastavaRouteImport.update({
+    id: '/founders/kaustubh-srivastava',
+    path: '/founders/kaustubh-srivastava',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FoundersChitranshSinghRathaurRoute =
+  FoundersChitranshSinghRathaurRouteImport.update({
+    id: '/founders/chitransh-singh-rathaur',
+    path: '/founders/chitransh-singh-rathaur',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FoundersArpitUpadhyayRoute = FoundersArpitUpadhyayRouteImport.update({
+  id: '/founders/arpit-upadhyay',
+  path: '/founders/arpit-upadhyay',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/founders/arpit-upadhyay': typeof FoundersArpitUpadhyayRoute
+  '/founders/chitransh-singh-rathaur': typeof FoundersChitranshSinghRathaurRoute
+  '/founders/kaustubh-srivastava': typeof FoundersKaustubhSrivastavaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/founders/arpit-upadhyay': typeof FoundersArpitUpadhyayRoute
+  '/founders/chitransh-singh-rathaur': typeof FoundersChitranshSinghRathaurRoute
+  '/founders/kaustubh-srivastava': typeof FoundersKaustubhSrivastavaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/founders/arpit-upadhyay': typeof FoundersArpitUpadhyayRoute
+  '/founders/chitransh-singh-rathaur': typeof FoundersChitranshSinghRathaurRoute
+  '/founders/kaustubh-srivastava': typeof FoundersKaustubhSrivastavaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/founders/arpit-upadhyay'
+    | '/founders/chitransh-singh-rathaur'
+    | '/founders/kaustubh-srivastava'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/founders/arpit-upadhyay'
+    | '/founders/chitransh-singh-rathaur'
+    | '/founders/kaustubh-srivastava'
+  id:
+    | '__root__'
+    | '/'
+    | '/founders/arpit-upadhyay'
+    | '/founders/chitransh-singh-rathaur'
+    | '/founders/kaustubh-srivastava'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FoundersArpitUpadhyayRoute: typeof FoundersArpitUpadhyayRoute
+  FoundersChitranshSinghRathaurRoute: typeof FoundersChitranshSinghRathaurRoute
+  FoundersKaustubhSrivastavaRoute: typeof FoundersKaustubhSrivastavaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +93,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/founders/kaustubh-srivastava': {
+      id: '/founders/kaustubh-srivastava'
+      path: '/founders/kaustubh-srivastava'
+      fullPath: '/founders/kaustubh-srivastava'
+      preLoaderRoute: typeof FoundersKaustubhSrivastavaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founders/chitransh-singh-rathaur': {
+      id: '/founders/chitransh-singh-rathaur'
+      path: '/founders/chitransh-singh-rathaur'
+      fullPath: '/founders/chitransh-singh-rathaur'
+      preLoaderRoute: typeof FoundersChitranshSinghRathaurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founders/arpit-upadhyay': {
+      id: '/founders/arpit-upadhyay'
+      path: '/founders/arpit-upadhyay'
+      fullPath: '/founders/arpit-upadhyay'
+      preLoaderRoute: typeof FoundersArpitUpadhyayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FoundersArpitUpadhyayRoute: FoundersArpitUpadhyayRoute,
+  FoundersChitranshSinghRathaurRoute: FoundersChitranshSinghRathaurRoute,
+  FoundersKaustubhSrivastavaRoute: FoundersKaustubhSrivastavaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
