@@ -72,7 +72,7 @@ export default function CustomCursor() {
   if (!enabled) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] hidden md:block">
+    <div className="pointer-events-none fixed inset-0 z-[10001] hidden md:block">
       <div
         ref={ringRef}
         className={`fixed left-0 top-0 rounded-full border border-ink/70 bg-background/10 backdrop-blur-[2px] transition-[width,height,background-color,border-color] duration-200 ease-out ${

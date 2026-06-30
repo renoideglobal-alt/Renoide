@@ -1227,6 +1227,199 @@ function FinalCTA() {
   );
 }
 
+/* ----------------------------- book-now call fallback ----------------------------- */
+
+const PRIMARY_NUMBER = "+919140386492";
+const SECONDARY_NUMBER = "+918572901073";
+const FALLBACK_DELAY_MS = 12_000;
+
+function BookNowButton({ className }: { className?: string }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [calling, setCalling] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const primaryBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  const handlePrimaryCall = () => {
+    if (calling) return;
+    if (debounceRef.current) return;
+    setCalling(true);
+    debounceRef.current = setTimeout(() => {
+      debounceRef.current = null;
+    }, 3000);
+    window.location.href = `tel:${PRIMARY_NUMBER}`;
+    fallbackTimerRef.current = setTimeout(() => {
+      showFallbackModal();
+    }, FALLBACK_DELAY_MS);
+  };
+
+  const showFallbackModal = () => {
+    setCalling(false);
+    setModalOpen(true);
+  };
+
+  const handleSecondaryCall = () => {
+    setModalOpen(false);
+    window.location.href = `tel:${SECONDARY_NUMBER}`;
+  };
+
+  const handleCancel = () => {
+    setModalOpen(false);
+    setCalling(false);
+    if (fallbackTimerRef.current) {
+      clearTimeout(fallbackTimerRef.current);
+      fallbackTimerRef.current = null;
+    }
+  };
+
+  // ESC key closes modal
+  useEffect(() => {
+    if (!modalOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleCancel();
+    };
+    window.addEventListener("keydown", onKey);
+    // Auto-focus primary action button for keyboard nav
+    primaryBtnRef.current?.focus();
+    return () => window.removeEventListener("keydown", onKey);
+  }, [modalOpen]);
+
+  return (
+    <>
+      <button
+        id="book-now-call-btn"
+        onClick={handlePrimaryCall}
+        disabled={calling}
+        className={className}
+        aria-label="Book a call — primary number"
+      >
+        {calling ? "Calling…" : "Book now"} <ArrowRight className="h-4 w-4" />
+      </button>
+
+      {/* Fallback Modal — rendered via portal-like fixed positioning */}
+      {modalOpen && (
+        <>
+          {/* Layer 1: Backdrop — z-9998, clicks dismiss modal */}
+          <div
+            aria-hidden
+            onClick={handleCancel}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9998,
+              background: "rgba(0,0,0,0.62)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+              cursor: "default",
+              pointerEvents: "auto",
+            }}
+          />
+
+          {/* Layer 2: Centering wrapper — z-9999, pointer-events only on children */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="fallback-modal-title"
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "1rem",
+              pointerEvents: "none", // pass-through; panel below re-enables
+            }}
+          >
+            {/* Layer 3: Glass panel — z-10000, all pointer events active */}
+            <div
+              className="modal-scope relative w-full max-w-sm rounded-2xl p-7 text-center"
+              style={{
+                zIndex: 10000,
+                pointerEvents: "auto",
+                cursor: "default",
+                isolation: "isolate",
+                background: "linear-gradient(135deg, rgba(10,14,30,0.96) 0%, rgba(15,20,45,0.98) 100%)",
+                border: "1px solid rgba(99,153,255,0.35)",
+                boxShadow:
+                  "0 0 0 1px rgba(99,153,255,0.12), 0 0 40px rgba(26,115,235,0.22), 0 24px 60px rgba(0,0,0,0.7)",
+                animation: "modal-in 0.22s cubic-bezier(0.34,1.56,0.64,1) both",
+              }}
+            >
+              {/* Glow blob — decorative only, no pointer capture */}
+              <div
+                aria-hidden
+                style={{
+                  pointerEvents: "none",
+                  position: "absolute",
+                  top: "-2.5rem",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  height: "6rem",
+                  width: "10rem",
+                  borderRadius: "9999px",
+                  filter: "blur(40px)",
+                  opacity: 0.4,
+                  background: "radial-gradient(closest-side, rgba(26,115,235,0.6), transparent)",
+                }}
+              />
+
+              {/* Icon ring */}
+              <span
+                style={{ cursor: "default" }}
+                className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(26,115,235,0.15)] ring-1 ring-[rgba(26,115,235,0.35)]"
+              >
+                <Phone className="h-5 w-5 text-[#6395ff]" />
+              </span>
+
+              <h2
+                id="fallback-modal-title"
+                className="font-display text-lg font-bold tracking-tight text-white"
+              >
+                Couldn't connect
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-[rgba(255,255,255,0.6)]">
+                Would you like to try our alternate number?
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3">
+                {/* Primary action */}
+                <button
+                  id="try-alternate-number-btn"
+                  ref={primaryBtnRef}
+                  onClick={handleSecondaryCall}
+                  style={{ cursor: "pointer", pointerEvents: "auto" }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a73eb] px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#2481f5] hover:shadow-[0_8px_24px_rgba(26,115,235,0.45)] active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6395ff]"
+                >
+                  <Phone className="h-4 w-4" />
+                  Try Another Number
+                </button>
+
+                {/* Cancel */}
+                <button
+                  id="cancel-fallback-btn"
+                  onClick={handleCancel}
+                  style={{ cursor: "pointer", pointerEvents: "auto" }}
+                  className="rounded-full border border-[rgba(255,255,255,0.12)] px-5 py-3 text-sm font-medium text-[rgba(255,255,255,0.55)] transition-all hover:border-[rgba(255,255,255,0.25)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6395ff]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <style>{`
+            @keyframes modal-in {
+              from { opacity: 0; transform: scale(0.88); }
+              to   { opacity: 1; transform: scale(1); }
+            }
+          `}</style>
+        </>
+      )}
+    </>
+  );
+}
+
 /* ----------------------------- contact ----------------------------- */
 
 function Contact() {
@@ -1266,12 +1459,7 @@ function Contact() {
                 <p className="text-xs text-ink-muted">No-pressure. Just a great conversation.</p>
               </div>
             </div>
-            <a
-              href="mailto:hello@renoide.com"
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
-            >
-              Book now <ArrowRight className="h-4 w-4" />
-            </a>
+            <BookNowButton className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed" />
           </div>
         </div>
 
@@ -1409,9 +1597,6 @@ function Footer() {
           <a href="#top" aria-label="Renoide home" className="inline-flex items-center">
             <RenoideLogo variant="stacked" />
           </a>
-          <p className="mt-3 text-[11px] uppercase tracking-[0.28em] text-ink-muted">
-            Engineering <span className="text-primary">Intelligent</span> Futures
-          </p>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-muted">
             Building websites, apps, AI agents and automation systems that grow modern businesses.
           </p>
@@ -1422,15 +1607,16 @@ function Footer() {
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-ink-muted">Social</p>
           <div className="flex gap-2">
             {[
-              { icon: Linkedin, label: "LinkedIn" },
-              { icon: Twitter, label: "Twitter" },
-              { icon: Instagram, label: "Instagram" },
-              { icon: Github, label: "GitHub" },
-            ].map(({ icon: Icon, label }) => (
+              { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/renoide/" },
+              { icon: Twitter, label: "Twitter", href: "#" },
+              { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/renoideglobal/?hl=en" },
+              { icon: Github, label: "GitHub", href: "#" },
+            ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
                 aria-label={label}
+                {...(href !== "#" && { target: "_blank", rel: "noopener noreferrer" })}
                 className="grid h-10 w-10 place-items-center rounded-full border border-border text-ink transition-colors hover:border-ink hover:bg-ink hover:text-background"
               >
                 <Icon className="h-4 w-4" />
@@ -1440,7 +1626,7 @@ function Footer() {
         </div>
       </div>
       <div className="container-x mt-12 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-ink-muted md:flex-row md:items-center">
-        <p>© 2025 Renoide. All rights reserved.</p>
+        <p>© 2026 Renoide. All rights reserved.</p>
         <p>Designed & built with care.</p>
       </div>
     </footer>
