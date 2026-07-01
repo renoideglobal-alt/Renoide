@@ -33,12 +33,12 @@ import {
   Twitter,
 } from "lucide-react";
 import heroImg from "@/assets/hero-illustration.png";
-import projFinflow from "@/assets/project-finflow.jpg";
-import projMedconnect from "@/assets/project-medconnect.jpg";
-import projRealtyhub from "@/assets/project-realtyhub.jpg";
-import projAiagent from "@/assets/project-aiagent.jpg";
-import projTaskpilot from "@/assets/project-taskpilot.jpg";
-import projStartupos from "@/assets/project-startupos.jpg";
+import projCarbonos from "@/assets/project-carbonos.png";
+import projAuzis from "@/assets/project-auzis.png";
+import projSevasetu from "@/assets/project-sevasetu.png";
+import projVoluntrix from "@/assets/project-voluntrix.png";
+import projCollegemess from "@/assets/project-collegemess.png";
+import projParamparik from "@/assets/project-paramparik.png";
 import founderArpit from "@/assets/founder-arpit.jpg";
 import founderChitransh from "@/assets/founder-chitransh.jpg";
 import founderKaustubh from "@/assets/founder-kaustubh.jpg";
@@ -50,6 +50,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import TrustLogos from "@/components/TrustLogos";
 import RenoideLogo from "@/components/RenoideLogo";
 import TechEcosystem from "@/components/TechEcosystem";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 
 /* ----------------------------- helpers ----------------------------- */
@@ -96,26 +97,6 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
       {suffix}
     </span>
   );
-}
-
-function useDarkMode() {
-  const [dark, setDark] = useState(false);
-  useEffect(() => {
-    const stored = localStorage.getItem("renoide-theme");
-    const prefers = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const initial = stored ? stored === "dark" : !!prefers;
-    setDark(initial);
-    document.documentElement.classList.toggle("dark", initial);
-  }, []);
-  const toggle = () => {
-    setDark((d) => {
-      const next = !d;
-      document.documentElement.classList.toggle("dark", next);
-      localStorage.setItem("renoide-theme", next ? "dark" : "light");
-      return next;
-    });
-  };
-  return { dark, toggle };
 }
 
 /* ----------------------------- nav ----------------------------- */
@@ -679,56 +660,457 @@ function Process() {
 
 type Category = "All" | "Websites" | "Apps" | "AI Solutions" | "Automation";
 
-const PROJECTS: { title: string; category: Exclude<Category, "All">; tag: string; desc: string; image: string }[] = [
+export const PROJECTS: {
+  slug: string;
+  title: string;
+  category: Exclude<Category, "All">;
+  tag: string;
+  desc: string;
+  image: string;
+  tagline: string;
+  description: string;
+  industry: string;
+  technologies: string[];
+  liveUrl: string;
+  primaryCTA: string;
+  secondaryCTA: string;
+  year: string;
+  featured: boolean;
+}[] = [
   {
-    title: "FinFlow",
+    slug: "carbonos",
+    title: "CarbonOS",
     category: "Apps",
-    tag: "Fintech Dashboard",
-    desc: "A real-time analytics dashboard for a fintech startup.",
-    image: projFinflow,
+    tag: "ClimateTech SaaS",
+    desc: "Generate audit-ready BRSR carbon reports in minutes.",
+    image: projCarbonos,
+    tagline: "Generate audit-ready BRSR carbon reports in minutes.",
+    description: "CarbonOS is an enterprise sustainability platform built for Indian MSMEs and supply-chain businesses to automate carbon accounting and generate audit-ready BRSR Core and Scope 3 compliance reports. The platform simplifies ESG reporting with an intuitive estimation engine, real-time calculations, and downloadable compliance documents, eliminating the need for expensive sustainability consultants.",
+    industry: "ESG • Sustainability • Compliance",
+    technologies: ["React", "Vercel", "JavaScript", "ClimateTech", "Analytics", "PDF Engine", "Responsive UI"],
+    liveUrl: "https://carbonos-pied.vercel.app/",
+    primaryCTA: "View Project",
+    secondaryCTA: "Visit Live Website",
+    year: "2026",
+    featured: true,
   },
   {
-    title: "MedConnect",
-    category: "Apps",
-    tag: "Healthcare App",
-    desc: "Patient-doctor booking and records on iOS & Android.",
-    image: projMedconnect,
-  },
-  {
-    title: "AI Support Agent",
+    slug: "auzis",
+    title: "Auzis",
     category: "AI Solutions",
-    tag: "Customer Support",
-    desc: "Resolves 70% of tickets automatically across channels.",
-    image: projAiagent,
+    tag: "AI SaaS Platform",
+    desc: "When seconds matter, Auzis moves first.",
+    image: projAuzis,
+    tagline: "When seconds matter, Auzis moves first.",
+    description: "Auzis is an AI-powered crisis intelligence platform designed for hotels, hospitals and commercial venues. It provides a centralized emergency command center where incidents are detected, visualized and routed in real time. AI-guided recommendations help staff coordinate emergency responses while improving operational safety and communication.",
+    industry: "Hospitality • Healthcare • Emergency Management",
+    technologies: ["React", "Netlify", "AI", "Real-time Dashboard", "Modern UI", "Responsive Design"],
+    liveUrl: "https://auzis.netlify.app/",
+    primaryCTA: "View Project",
+    secondaryCTA: "Visit Live Website",
+    year: "2026",
+    featured: true,
   },
   {
-    title: "RealtyHub",
-    category: "Websites",
-    tag: "Real Estate",
-    desc: "Editorial property listings with search and CMS.",
-    image: projRealtyhub,
+    slug: "sevasetu",
+    title: "SevaSetu",
+    category: "AI Solutions",
+    tag: "AI Platform",
+    desc: "Connecting the right volunteer to the right need.",
+    image: projSevasetu,
+    tagline: "Connecting the right volunteer to the right need.",
+    description: "SevaSetu is an AI-powered volunteer coordination platform that transforms fragmented community requests into structured action plans. The platform intelligently matches volunteers with nearby opportunities while enabling NGOs to monitor operations, coordinate teams and measure real-world impact through a centralized management interface.",
+    industry: "NGO • Social Impact • Volunteer Coordination",
+    technologies: ["React", "Firebase", "Firestore", "AI Matching", "Cloud Functions", "Responsive UI"],
+    liveUrl: "https://sevasetu-998.web.app/",
+    primaryCTA: "View Project",
+    secondaryCTA: "Visit Live Website",
+    year: "2026",
+    featured: true,
   },
   {
-    title: "TaskPilot",
-    category: "Automation",
-    tag: "Workflow Platform",
-    desc: "No-code workflow automation across 50+ business tools.",
-    image: projTaskpilot,
-  },
-  {
-    title: "StartupOS",
+    slug: "voluntrix",
+    title: "Voluntrix",
     category: "Apps",
-    tag: "Internal Ops Dashboard",
-    desc: "A single pane of glass for finance, HR and product teams.",
-    image: projStartupos,
+    tag: "Enterprise Dashboard",
+    desc: "Intelligent volunteer operations built for impact.",
+    image: projVoluntrix,
+    tagline: "Intelligent volunteer operations built for impact.",
+    description: "Voluntrix is a modern volunteer operations platform that enables NGOs to manage opportunities, volunteers, data ingestion and field operations from a unified dashboard. The system combines analytics, workflow automation and intelligent coordination to improve operational efficiency and transparency.",
+    industry: "NGO Operations",
+    technologies: ["React", "Firebase", "Firestore", "Gemini AI", "Google Maps", "BigQuery", "Dashboard"],
+    liveUrl: "https://voluntrix-998.web.app/",
+    primaryCTA: "View Project",
+    secondaryCTA: "Visit Live Website",
+    year: "2026",
+    featured: true,
+  },
+  {
+    slug: "collegemess",
+    title: "CollegeMess",
+    category: "Apps",
+    tag: "Student Productivity Platform",
+    desc: "Build your own college workflow.",
+    image: projCollegemess,
+    tagline: "Build your own college workflow.",
+    description: "CollegeMess is a productivity operating system created specifically for college students. It combines academics, habits, skills, opportunities and daily planning into a customizable workspace that helps students organize every aspect of campus life without unnecessary complexity.",
+    industry: "Education Technology",
+    technologies: ["React", "Netlify", "Firebase", "Responsive UI", "Modern Design"],
+    liveUrl: "https://collegemess.netlify.app/",
+    primaryCTA: "View Project",
+    secondaryCTA: "Visit Live Website",
+    year: "2026",
+    featured: true,
+  },
+  {
+    slug: "paramparik",
+    title: "Paramparik Industries",
+    category: "Websites",
+    tag: "Corporate Website",
+    desc: "Power your home with smart solar energy.",
+    image: projParamparik,
+    tagline: "Power your home with smart solar energy.",
+    description: "A premium corporate website developed for Paramparik Industries to showcase rooftop solar solutions, educate homeowners about government subsidy programs and generate qualified consultation leads through a modern, conversion-focused digital experience.",
+    industry: "Renewable Energy",
+    technologies: ["React", "Vercel", "SEO", "Responsive Design", "Modern UI"],
+    liveUrl: "https://the-paramparik-industries.vercel.app/",
+    primaryCTA: "View Project",
+    secondaryCTA: "Visit Live Website",
+    year: "2026",
+    featured: true,
   },
 ];
+
+
+/* ----------------------------- project modal ----------------------------- */
+
+function ProjectModal({
+  project,
+  onClose,
+}: {
+  project: (typeof PROJECTS)[number] | null;
+  onClose: () => void;
+}) {
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  // ESC + scroll-lock
+  useEffect(() => {
+    if (!project) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    closeBtnRef.current?.focus();
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [project, onClose]);
+
+  if (!project) return null;
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        aria-hidden
+        onClick={onClose}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9998,
+          background: "rgba(0,0,0,0.72)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+          cursor: "default",
+          animation: "pm-backdrop-in 0.25s ease both",
+        }}
+      />
+
+      {/* Centering shell */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "1rem",
+          pointerEvents: "none",
+          overflowY: "auto",
+        }}
+      >
+        {/* Skeuomorphic glass panel */}
+        <div
+          className="modal-scope relative w-full max-w-lg rounded-3xl"
+          style={{
+            pointerEvents: "auto",
+            cursor: "default",
+            isolation: "isolate",
+            background: "linear-gradient(160deg, rgba(18,26,56,0.98) 0%, rgba(10,15,35,0.99) 100%)",
+            border: "1px solid rgba(255,255,255,0.09)",
+            boxShadow: [
+              "0 0 80px rgba(26,115,235,0.28)",
+              "0 40px 80px rgba(0,0,0,0.75)",
+              "0 8px 24px rgba(0,0,0,0.55)",
+              "inset 0 1px 0 rgba(255,255,255,0.12)",
+              "inset 0 -1px 0 rgba(0,0,0,0.6)",
+            ].join(", "),
+            animation: "pm-panel-in 0.3s cubic-bezier(0.34,1.56,0.64,1) both",
+            marginTop: "auto",
+            marginBottom: "auto",
+          }}
+        >
+          {/* Glass reflection highlight strip */}
+          <div
+            aria-hidden
+            style={{
+              pointerEvents: "none",
+              position: "absolute",
+              top: 0,
+              left: "10%",
+              right: "10%",
+              height: "1px",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
+              borderRadius: "9999px",
+            }}
+          />
+
+          {/* Ambient top glow blob */}
+          <div
+            aria-hidden
+            style={{
+              pointerEvents: "none",
+              position: "absolute",
+              top: "-3rem",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "16rem",
+              height: "8rem",
+              borderRadius: "9999px",
+              filter: "blur(48px)",
+              opacity: 0.35,
+              background: "radial-gradient(closest-side, rgba(26,115,235,0.7), transparent)",
+            }}
+          />
+
+          {/* Close button */}
+          <button
+            ref={closeBtnRef}
+            onClick={onClose}
+            aria-label="Close project profile"
+            style={{ cursor: "pointer" }}
+            className="modal-scope absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-white/60 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6395ff]"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          {/* Hero image */}
+          <div className="relative h-48 overflow-hidden rounded-t-3xl sm:h-56">
+            <img
+              src={project.image}
+              alt={`Screenshot of ${project.title}`}
+              loading="lazy"
+              draggable={false}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+            {/* Bottom fade into panel */}
+            <div
+              aria-hidden
+              style={{
+                pointerEvents: "none",
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "60%",
+                background: "linear-gradient(to top, rgba(10,15,35,0.98) 0%, transparent 100%)",
+              }}
+            />
+            {/* Category & Year badges floated bottom */}
+            <div className="absolute bottom-4 left-5 flex gap-2">
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "0.25rem 0.875rem",
+                  borderRadius: "9999px",
+                  fontSize: "0.7rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#7eb8ff",
+                  background: "rgba(26,115,235,0.18)",
+                  border: "1px solid rgba(26,115,235,0.35)",
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                {project.category}
+              </span>
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "0.25rem 0.875rem",
+                  borderRadius: "9999px",
+                  fontSize: "0.7rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
+                  color: "rgba(255,255,255,0.7)",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                {project.year}
+              </span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="px-6 pb-7 pt-5">
+            {/* Title */}
+            <h2
+              id="project-modal-title"
+              className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl"
+            >
+              {project.title}
+            </h2>
+
+            {/* Tagline */}
+            <p className="mt-1 text-sm font-medium text-white/50 italic">
+              {project.tagline}
+            </p>
+
+            {/* Divider with glow */}
+            <div
+              aria-hidden
+              style={{
+                marginTop: "1rem",
+                height: "1px",
+                background: "linear-gradient(90deg, rgba(26,115,235,0.6) 0%, rgba(52,199,85,0.3) 50%, transparent 100%)",
+                borderRadius: "9999px",
+              }}
+            />
+
+            {/* Industry Info */}
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                Industry:
+              </span>
+              <span className="text-xs font-medium text-white/80">{project.industry}</span>
+            </div>
+
+            {/* Description text */}
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              {project.description}
+            </p>
+
+            {/* Technologies */}
+            <div className="mt-5">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                Technologies Used
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    style={{
+                      display: "inline-block",
+                      padding: "0.2rem 0.65rem",
+                      borderRadius: "9999px",
+                      fontSize: "0.65rem",
+                      fontWeight: 500,
+                      color: "rgba(255,255,255,0.75)",
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                    }}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div className="mt-7 flex flex-wrap gap-3 items-center justify-between">
+              <div className="flex gap-2">
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ cursor: "pointer" }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a73eb] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#2481f5] hover:shadow-[0_8px_24px_rgba(26,115,235,0.45)] active:scale-[0.97]"
+                >
+                  {project.secondaryCTA || "Visit Live Website"}
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+                <a
+                  href={`/work/${project.slug}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-white/5 active:scale-[0.97]"
+                >
+                  Read Case Study
+                </a>
+              </div>
+              <button
+                onClick={onClose}
+                className="rounded-full border border-white/10 px-4 py-2.5 text-xs font-medium text-white/60 hover:border-white/20 hover:text-white"
+              >
+                Close Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes pm-backdrop-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes pm-panel-in {
+          from { opacity: 0; transform: scale(0.86) translateY(16px); }
+          to   { opacity: 1; transform: scale(1)   translateY(0); }
+        }
+      `}</style>
+    </>
+  );
+}
 
 const FILTERS: Category[] = ["All", "Websites", "Apps", "AI Solutions", "Automation"];
 
 function Portfolio() {
   const [filter, setFilter] = useState<Category>("All");
+  const [activeProject, setActiveProject] = useState<(typeof PROJECTS)[number] | null>(null);
+
   const visible = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+
+  // Run scroll reveal checks whenever the filter changes
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>("#work .reveal"));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [filter]);
+
   return (
     <section id="work" className="border-t border-border bg-surface py-24 md:py-32">
       <div className="container-x">
@@ -762,8 +1144,9 @@ function Portfolio() {
             <article
               key={p.title}
               data-cursor="hover"
-              data-cursor-text="View project"
-              className="reveal group overflow-hidden rounded-2xl border border-border bg-surface-2 transition-all duration-500 hover:-translate-y-1.5 hover:border-ink/40 hover:shadow-[0_40px_80px_-30px_rgba(17,17,17,0.28)]"
+              data-cursor-text="View details"
+              onClick={() => setActiveProject(p)}
+              className="reveal group cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface-2 transition-all duration-500 hover:-translate-y-1.5 hover:border-ink/40 hover:shadow-[0_40px_80px_-30px_rgba(17,17,17,0.28)]"
               style={{ transitionDelay: `${i * 70}ms` }}
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-surface">
@@ -786,33 +1169,53 @@ function Portfolio() {
                 <div className="absolute inset-x-0 bottom-0 translate-y-3 px-6 pb-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   <p className="text-sm leading-relaxed text-background/90">{p.desc}</p>
                   <a
-                    href="#contact"
-                    className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-background px-4 py-2 text-xs font-medium text-ink shadow-lg"
+                    href={p.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-background px-4 py-2 text-xs font-medium text-ink shadow-lg animate-fade-in"
                   >
-                    View project <ArrowUpRight className="h-3.5 w-3.5" />
+                    Visit Website <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
               </div>
-              <div className="flex items-start justify-between gap-4 p-6">
-                <div>
-                  <p className="text-xs text-ink-muted">{p.tag}</p>
-                  <h3 className="mt-1 font-display text-xl font-semibold text-ink transition-transform duration-300 group-hover:-translate-y-0.5">
-                    {p.title}
-                  </h3>
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs text-ink-muted">{p.tag}</p>
+                    <h3 className="mt-1 font-display text-xl font-semibold text-ink transition-transform duration-300 group-hover:-translate-y-0.5">
+                      {p.title}
+                    </h3>
+                  </div>
+                  <a
+                    href={p.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-border text-ink transition-all duration-300 group-hover:rotate-45 group-hover:border-ink group-hover:bg-ink group-hover:text-background"
+                    aria-label={`View ${p.title} website`}
+                  >
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
                 </div>
-                <a
-                  href="#contact"
-                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-border text-ink transition-all duration-300 group-hover:rotate-45 group-hover:border-ink group-hover:bg-ink group-hover:text-background"
-                  aria-label={`View ${p.title}`}
-                >
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
+                {/* Tech Badges */}
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {p.technologies.slice(0, 4).map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-border bg-surface-2 px-2 py-0.5 text-[10px] font-medium text-ink-muted"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </article>
           ))}
 
         </div>
       </div>
+      <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
     </section>
   );
 }
@@ -1166,40 +1569,48 @@ function FounderModal({ founder, onClose }: { founder: FounderData | null; onClo
             </div>
 
             {/* Social links */}
-            <div className="mt-6 flex items-center gap-3">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">Connect</p>
-              <div className="flex gap-2">
-                <a
-                  href={founder.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  style={{ cursor: "pointer" }}
-                  className={socialBtn + " border-[rgba(10,102,194,0.45)] bg-[rgba(10,102,194,0.12)] text-[#7eb8ff] hover:border-[rgba(10,102,194,0.8)] hover:bg-[rgba(10,102,194,0.25)] hover:shadow-[0_0_16px_rgba(10,102,194,0.4)]"}
-                >
-                  <Linkedin className="h-4 w-4" />
-                </a>
-                <a
-                  href={founder.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  style={{ cursor: "pointer" }}
-                  className={socialBtn + " border-[rgba(225,48,108,0.45)] bg-[rgba(225,48,108,0.10)] text-[#f472b6] hover:border-[rgba(225,48,108,0.8)] hover:bg-[rgba(225,48,108,0.22)] hover:shadow-[0_0_16px_rgba(225,48,108,0.35)]"}
-                >
-                  <Instagram className="h-4 w-4" />
-                </a>
-                <a
-                  href={founder.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  style={{ cursor: "pointer" }}
-                  className={socialBtn + " border-white/20 bg-white/5 text-white/70 hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.12)]"}
-                >
-                  <Github className="h-4 w-4" />
-                </a>
+            <div className="mt-6 flex flex-wrap gap-4 items-center justify-between">
+              <div className="flex items-center gap-3">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">Connect</p>
+                <div className="flex gap-2">
+                  <a
+                    href={founder.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    style={{ cursor: "pointer" }}
+                    className={socialBtn + " border-[rgba(10,102,194,0.45)] bg-[rgba(10,102,194,0.12)] text-[#7eb8ff] hover:border-[rgba(10,102,194,0.8)] hover:bg-[rgba(10,102,194,0.25)] hover:shadow-[0_0_16px_rgba(10,102,194,0.4)]"}
+                  >
+                    <Linkedin className="h-4 w-4" />
+                  </a>
+                  <a
+                    href={founder.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    style={{ cursor: "pointer" }}
+                    className={socialBtn + " border-[rgba(225,48,108,0.45)] bg-[rgba(225,48,108,0.10)] text-[#f472b6] hover:border-[rgba(225,48,108,0.8)] hover:bg-[rgba(225,48,108,0.22)] hover:shadow-[0_0_16px_rgba(225,48,108,0.35)]"}
+                  >
+                    <Instagram className="h-4 w-4" />
+                  </a>
+                  <a
+                    href={founder.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    style={{ cursor: "pointer" }}
+                    className={socialBtn + " border-white/20 bg-white/5 text-white/70 hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.12)]"}
+                  >
+                    <Github className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
+              <a
+                href={`/founders/${founder.slug}`}
+                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-white/80 transition-all hover:bg-white/10 active:scale-[0.97]"
+              >
+                Read Bio
+              </a>
             </div>
           </div>
         </div>

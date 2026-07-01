@@ -1,12 +1,12 @@
 import { Atom, Briefcase, HeartPulse, Landmark, ShoppingBag, Sparkle } from "lucide-react";
 
 const LOGOS = [
-  { name: "Nova Labs", icon: Atom },
-  { name: "Lumen SaaS", icon: Sparkle },
-  { name: "Vitalcare", icon: HeartPulse },
-  { name: "Northwind", icon: Landmark },
-  { name: "Kartora", icon: ShoppingBag },
-  { name: "Atelier&Co", icon: Briefcase },
+  { name: "CarbonOs", icon: Atom },
+  { name: "Voluntrix", icon: Sparkle },
+  { name: "Auzis", icon: HeartPulse },
+  { name: "Paramparik", icon: Landmark },
+  { name: "CollegeMess", icon: ShoppingBag },
+  { name: "SevaSetu", icon: Briefcase },
 ];
 
 export default function TrustLogos() {

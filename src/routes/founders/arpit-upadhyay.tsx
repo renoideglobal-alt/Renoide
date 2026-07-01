@@ -20,15 +20,15 @@ export const Route = createFileRoute("/founders/arpit-upadhyay")({
           "Technical architect and AI founder. CEO & CTO of Renoide — a modern technology agency building AI systems, web apps and automation solutions.",
       },
       { property: "og:type", content: "profile" },
-      { property: "og:url", content: "https://renoide.com/founders/arpit-upadhyay" },
-      { property: "og:image", content: "https://renoide.com/og-image.png" },
+      { property: "og:url", content: "https://renoide.in/founders/arpit-upadhyay" },
+      { property: "og:image", content: "https://renoide.in/og-image.png" },
       { property: "og:site_name", content: "Renoide" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Arpit Upadhyay — CEO & CTO at Renoide" },
       { name: "twitter:description", content: "AI systems expert, software architect, and co-founder of Renoide." },
     ],
     links: [
-      { rel: "canonical", href: "https://renoide.com/founders/arpit-upadhyay" },
+      { rel: "canonical", href: "https://renoide.in/founders/arpit-upadhyay" },
     ],
   }),
   component: function ArpitPage() {

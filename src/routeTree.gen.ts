@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkProjectSlugRouteImport } from './routes/work/$projectSlug'
 import { Route as FoundersKaustubhSrivastavaRouteImport } from './routes/founders/kaustubh-srivastava'
 import { Route as FoundersChitranshSinghRathaurRouteImport } from './routes/founders/chitransh-singh-rathaur'
 import { Route as FoundersArpitUpadhyayRouteImport } from './routes/founders/arpit-upadhyay'
@@ -17,6 +18,11 @@ import { Route as FoundersArpitUpadhyayRouteImport } from './routes/founders/arp
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkProjectSlugRoute = WorkProjectSlugRouteImport.update({
+  id: '/work/$projectSlug',
+  path: '/work/$projectSlug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundersKaustubhSrivastavaRoute =
@@ -42,12 +48,14 @@ export interface FileRoutesByFullPath {
   '/founders/arpit-upadhyay': typeof FoundersArpitUpadhyayRoute
   '/founders/chitransh-singh-rathaur': typeof FoundersChitranshSinghRathaurRoute
   '/founders/kaustubh-srivastava': typeof FoundersKaustubhSrivastavaRoute
+  '/work/$projectSlug': typeof WorkProjectSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/founders/arpit-upadhyay': typeof FoundersArpitUpadhyayRoute
   '/founders/chitransh-singh-rathaur': typeof FoundersChitranshSinghRathaurRoute
   '/founders/kaustubh-srivastava': typeof FoundersKaustubhSrivastavaRoute
+  '/work/$projectSlug': typeof WorkProjectSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -55,6 +63,7 @@ export interface FileRoutesById {
   '/founders/arpit-upadhyay': typeof FoundersArpitUpadhyayRoute
   '/founders/chitransh-singh-rathaur': typeof FoundersChitranshSinghRathaurRoute
   '/founders/kaustubh-srivastava': typeof FoundersKaustubhSrivastavaRoute
+  '/work/$projectSlug': typeof WorkProjectSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -63,18 +72,21 @@ export interface FileRouteTypes {
     | '/founders/arpit-upadhyay'
     | '/founders/chitransh-singh-rathaur'
     | '/founders/kaustubh-srivastava'
+    | '/work/$projectSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/founders/arpit-upadhyay'
     | '/founders/chitransh-singh-rathaur'
     | '/founders/kaustubh-srivastava'
+    | '/work/$projectSlug'
   id:
     | '__root__'
     | '/'
     | '/founders/arpit-upadhyay'
     | '/founders/chitransh-singh-rathaur'
     | '/founders/kaustubh-srivastava'
+    | '/work/$projectSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -82,6 +94,7 @@ export interface RootRouteChildren {
   FoundersArpitUpadhyayRoute: typeof FoundersArpitUpadhyayRoute
   FoundersChitranshSinghRathaurRoute: typeof FoundersChitranshSinghRathaurRoute
   FoundersKaustubhSrivastavaRoute: typeof FoundersKaustubhSrivastavaRoute
+  WorkProjectSlugRoute: typeof WorkProjectSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -91,6 +104,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/work/$projectSlug': {
+      id: '/work/$projectSlug'
+      path: '/work/$projectSlug'
+      fullPath: '/work/$projectSlug'
+      preLoaderRoute: typeof WorkProjectSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founders/kaustubh-srivastava': {
@@ -122,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   FoundersArpitUpadhyayRoute: FoundersArpitUpadhyayRoute,
   FoundersChitranshSinghRathaurRoute: FoundersChitranshSinghRathaurRoute,
   FoundersKaustubhSrivastavaRoute: FoundersKaustubhSrivastavaRoute,
+  WorkProjectSlugRoute: WorkProjectSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

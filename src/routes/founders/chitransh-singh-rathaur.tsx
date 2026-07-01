@@ -20,15 +20,15 @@ export const Route = createFileRoute("/founders/chitransh-singh-rathaur")({
           "CFO & COO of Renoide. Specialist in operations excellence, financial strategy and organizational scaling for modern technology companies.",
       },
       { property: "og:type", content: "profile" },
-      { property: "og:url", content: "https://renoide.com/founders/chitransh-singh-rathaur" },
-      { property: "og:image", content: "https://renoide.com/og-image.png" },
+      { property: "og:url", content: "https://renoide.in/founders/chitransh-singh-rathaur" },
+      { property: "og:image", content: "https://renoide.in/og-image.png" },
       { property: "og:site_name", content: "Renoide" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Chitransh Singh Rathour — CFO & COO at Renoide" },
       { name: "twitter:description", content: "Operations & financial strategy expert and co-founder of Renoide." },
     ],
     links: [
-      { rel: "canonical", href: "https://renoide.com/founders/chitransh-singh-rathaur" },
+      { rel: "canonical", href: "https://renoide.in/founders/chitransh-singh-rathaur" },
     ],
   }),
   component: function ChitranshPage() {
