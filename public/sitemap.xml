@@ -6,7 +6,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://renoide.com/</loc>
+    <loc>https://renoide.in/</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,24 +14,67 @@
 
   <!-- Founder profiles -->
   <url>
-    <loc>https://renoide.com/founders/arpit-upadhyay</loc>
+    <loc>https://renoide.in/founders/arpit-upadhyay</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://renoide.com/founders/chitransh-singh-rathaur</loc>
+    <loc>https://renoide.in/founders/chitransh-singh-rathaur</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://renoide.in/founders/kaustubh-srivastava</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Projects Case Studies -->
   <url>
-    <loc>https://renoide.com/founders/kaustubh-srivastava</loc>
+    <loc>https://renoide.in/work/carbonos</loc>
     <lastmod>2026-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://renoide.in/work/auzis</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://renoide.in/work/sevasetu</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://renoide.in/work/voluntrix</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://renoide.in/work/collegemess</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://renoide.in/work/paramparik</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
 </urlset>
