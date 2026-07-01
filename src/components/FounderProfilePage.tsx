@@ -1,4 +1,6 @@
-import { Linkedin, Instagram, Github, ArrowLeft, ExternalLink } from "lucide-react";
+import { Linkedin, Instagram, Github, ArrowLeft, ExternalLink, Sun, Moon } from "lucide-react";
+import CustomCursor from "@/components/CustomCursor";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 export type FounderProfile = {
   slug: string;
@@ -15,6 +17,7 @@ export type FounderProfile = {
 };
 
 export default function FounderProfilePage({ founder }: { founder: FounderProfile }) {
+  const { dark, toggle } = useDarkMode();
   const canonicalUrl = `https://renoide.in/founders/${founder.slug}`;
 
   const personSchema = {
@@ -37,6 +40,9 @@ export default function FounderProfilePage({ founder }: { founder: FounderProfil
 
   return (
     <>
+      {/* Dynamic Custom Cursor */}
+      <CustomCursor />
+
       {/* Inline JSON-LD per-page Person schema */}
       <script
         type="application/ld+json"
@@ -46,7 +52,7 @@ export default function FounderProfilePage({ founder }: { founder: FounderProfil
       <div className="min-h-screen bg-background">
         {/* Back nav */}
         <nav className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
-          <div className="container-x flex h-16 items-center gap-4">
+          <div className="container-x flex h-16 items-center justify-between gap-4">
             <a
               href="/#founders"
               className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
@@ -55,6 +61,13 @@ export default function FounderProfilePage({ founder }: { founder: FounderProfil
               <ArrowLeft className="h-4 w-4" />
               Back to Renoide
             </a>
+            <button
+              onClick={toggle}
+              aria-label="Toggle theme"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border bg-surface-2 text-ink transition-all hover:border-ink hover:-translate-y-0.5"
+            >
+              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
           </div>
         </nav>
 

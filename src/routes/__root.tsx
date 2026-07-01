@@ -204,6 +204,22 @@ function RootShell({ children }: { children: ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const stored = localStorage.getItem("renoide-theme");
+                const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                const initial = stored ? stored === "dark" : prefers;
+                if (initial) {
+                  document.documentElement.classList.add("dark");
+                } else {
+                  document.documentElement.classList.remove("dark");
+                }
+              })();
+            `
+          }}
+        />
       </head>
       <body>
         {children}
