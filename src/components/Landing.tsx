@@ -42,9 +42,12 @@ import projParamparik from "@/assets/project-paramparik.png";
 import founderArpit from "@/assets/founder-arpit.jpg";
 import founderChitransh from "@/assets/founder-chitransh.jpg";
 import founderKaustubh from "@/assets/founder-kaustubh.jpg";
-import testimonialPriya from "@/assets/testimonial-priya.jpg";
-import testimonialDaniel from "@/assets/testimonial-daniel.jpg";
-import testimonialAnanya from "@/assets/testimonial-ananya.jpg";
+import testimonialShreya from "@/assets/testimonial-shreya.jpg";
+import testimonialAyushi from "@/assets/testimonial-ayushi.jpg";
+import testimonialDivyanshi from "@/assets/testimonial-divyanshi.jpg";
+import testimonialDeepak from "@/assets/testimonial-deepak.jpg";
+import testimonialAnushka from "@/assets/testimonial-anushka.jpg";
+import testimonialKuldeep from "@/assets/testimonial-Kuldeep.jpg";
 import CustomCursor from "@/components/CustomCursor";
 import LoadingScreen from "@/components/LoadingScreen";
 import TrustLogos from "@/components/TrustLogos";
@@ -74,30 +77,6 @@ function useInView<T extends HTMLElement>(opts: IntersectionObserverInit = { thr
   return { ref, inView };
 }
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const { ref, inView } = useInView<HTMLSpanElement>();
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const start = performance.now();
-    const dur = 1400;
-    let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / dur);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setN(Math.round(to * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, to]);
-  return (
-    <span ref={ref}>
-      {n}
-      {suffix}
-    </span>
-  );
-}
 
 /* ----------------------------- nav ----------------------------- */
 
@@ -133,7 +112,7 @@ function Nav({ dark, toggle }: { dark: boolean; toggle: () => void }) {
           </button>
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+            className="btn-primary magnetic-btn hidden items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium md:inline-flex"
           >
             Book a call <ArrowRight className="h-4 w-4" />
           </a>
@@ -162,7 +141,7 @@ function Nav({ dark, toggle }: { dark: boolean; toggle: () => void }) {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
+              className="btn-primary magnetic-btn inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium"
             >
               Book a call <ArrowRight className="h-4 w-4" />
             </a>
@@ -207,20 +186,15 @@ function Hero() {
             <a
               href="#contact"
               data-cursor="hover"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-ink px-7 py-3.5 text-sm font-medium text-background shadow-[0_10px_30px_-10px_rgba(91,108,255,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(91,108,255,0.65)] active:scale-[0.98]"
+              className="btn-primary magnetic-btn group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-medium active:scale-[0.98]"
             >
-              <span
-                aria-hidden
-                className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: "linear-gradient(135deg, #5B6CFF 0%, #8B7DFF 100%)" }}
-              />
               <span className="relative">Book a free strategy call</span>
               <ArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
               href="#work"
               data-cursor="hover"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface-2 px-7 py-3.5 text-sm font-medium text-ink transition-all hover:border-ink hover:-translate-y-0.5"
+              className="btn-secondary magnetic-btn inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium"
             >
               View our work
             </a>
@@ -279,37 +253,10 @@ function Hero() {
             </div>
             <div className="animate-floaty-slow absolute -right-2 bottom-10 hidden rounded-2xl border border-border bg-surface-2 px-4 py-3 shadow-[0_20px_50px_-30px_rgba(17,17,17,0.25)] sm:block">
               <p className="text-[10px] uppercase tracking-widest text-ink-muted">Automation</p>
-              <p className="text-sm font-semibold text-ink">+38% leads / mo</p>
+              <p className="text-sm font-semibold text-ink">Leads organized</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-
-/* ----------------------------- trust bar ----------------------------- */
-
-const STATS = [
-  { value: 50, suffix: "+", label: "Projects delivered" },
-  { value: 20, suffix: "+", label: "Happy clients" },
-  { value: 95, suffix: "%", label: "Client satisfaction" },
-  { value: 4, suffix: "+", label: "Years experience" },
-];
-
-function TrustBar() {
-  return (
-    <section className="container-x -mt-2 pb-16 md:pb-24">
-      <div className="grid grid-cols-2 gap-4 rounded-3xl border border-border bg-surface-2 p-6 md:grid-cols-4 md:p-8">
-        {STATS.map((s) => (
-          <div key={s.label} className="text-center md:text-left">
-            <p className="font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
-              <Counter to={s.value} suffix={s.suffix} />
-            </p>
-            <p className="mt-2 text-sm text-ink-muted">{s.label}</p>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -363,9 +310,9 @@ const SERVICES: ServiceDetail[] = [
   {
     icon: Workflow,
     title: "Business Automation",
-    desc: "Automate repetitive workflows across tools and reclaim hundreds of hours.",
+    desc: "Automate repetitive workflows across tools and give your team time back.",
     what: ["Lead automation", "Email automation", "CRM automation", "Internal workflow automation"],
-    benefits: ["Save 100+ hours / month", "Zero manual errors", "Real-time sync"],
+    benefits: ["Less manual work", "Fewer handoff errors", "Real-time sync"],
   },
   {
     icon: Sparkles,
@@ -1705,80 +1652,139 @@ function Founders() {
 
 const REVIEWS = [
   {
-    quote:
-      "Renoide rebuilt our entire customer portal in 6 weeks. The new platform is faster, cleaner and our NPS jumped 22 points.",
-    name: "Priya Menon",
-    role: "Head of Product",
-    company: "Northwind Health",
-    image: testimonialPriya,
+    name: "Shreya Srivastava",
+    project: "CarbonOS",
+    quote: "Renoide transformed our vision into a polished digital product. The team maintained excellent communication throughout the process and delivered exactly what we needed. Their technical expertise and attention to detail stood out.",
+    company: "CarbonOS",
+    image: testimonialShreya,
     rating: 5,
   },
   {
-    quote:
-      "Their AI agent now handles 70% of our inbound support. Easily the highest-ROI engineering investment we've ever made.",
-    name: "Daniel Brooks",
-    role: "Founder & CEO",
-    company: "FinFlow",
-    image: testimonialDaniel,
+    name: "Ayushi Srivastava",
+    project: "Auzis",
+    quote: "The delivery process was smooth, transparent, and professional. Every milestone was completed on time, and the Renoide team was always available for support and feedback.",
+    company: "Auzis",
+    image: testimonialAyushi,
     rating: 5,
   },
   {
-    quote:
-      "From discovery to launch, the team felt like part of ours. Smart, calm, and incredibly fast — exactly what a scaling startup needs.",
-    name: "Ananya Rao",
-    role: "COO",
-    company: "TaskPilot",
-    image: testimonialAnanya,
+    name: "Divyanshi Singh",
+    project: "Seva Setu",
+    quote: "Working with Renoide was a great experience. They understood the project requirements quickly and built a solution that exceeded our expectations.",
+    company: "Seva Setu",
+    image: testimonialDivyanshi,
+    rating: 5,
+  },
+  {
+    name: "Deepak Singh",
+    project: "Paramparik Industries",
+    quote: "The Renoide team helped us modernize our online presence with a clean and scalable solution. Their professionalism and execution were exceptional.",
+    company: "Paramparik Industries",
+    image: testimonialDeepak,
+    rating: 5,
+  },
+  {
+    name: "Anushka Yadav",
+    project: "Voluntrix",
+    quote: "From planning to deployment, the Renoide team demonstrated strong technical skills and a client-first mindset. Highly recommended.",
+    company: "Voluntrix",
+    image: testimonialAnushka,
+    rating: 5,
+  },
+  {
+    name: "Kuldeep Singh",
+    project: "Creativo India",
+    quote: "The final product was exactly what we envisioned. Communication was clear, deadlines were respected, and the overall experience was outstanding.",
+    company: "Creativo India",
+    image: testimonialKuldeep,
     rating: 5,
   },
 ];
+
+function TestimonialCard({ r }: { r: (typeof REVIEWS)[0] }) {
+  return (
+    <figure
+      data-cursor="hover"
+      className="testimonial-card group relative flex flex-col overflow-hidden p-6 md:p-7"
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute right-5 top-4 select-none text-ink/[0.035] transition-all duration-500 group-hover:text-primary/[0.07]"
+      >
+        <Quote className="h-16 w-16" strokeWidth={1} />
+      </span>
+
+      <div className="relative flex items-start justify-between gap-3">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-muted shadow-[var(--shadow-card)]">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "#1A73EB" }} />
+          {r.company}
+        </span>
+        <div className="flex items-center gap-0.5" aria-label={`${r.rating} out of 5 stars`} role="img">
+          {Array.from({ length: r.rating }).map((_, k) => (
+            <Star key={k} className="h-3.5 w-3.5 fill-current text-amber-400" strokeWidth={0} />
+          ))}
+        </div>
+      </div>
+
+      <blockquote className="relative mt-5 flex-1 text-sm font-normal leading-[1.8] text-ink">
+        <span className="mr-0.5 font-serif text-lg leading-none text-primary/60">&ldquo;</span>
+        {r.quote}
+        <span className="ml-0.5 font-serif text-lg leading-none text-primary/60">&rdquo;</span>
+      </blockquote>
+
+      <div
+        className="my-5 h-px w-full"
+        style={{ background: "linear-gradient(90deg, transparent, var(--color-border) 25%, var(--color-border) 75%, transparent)" }}
+        aria-hidden
+      />
+
+      <figcaption className="relative flex items-center gap-3.5">
+        <div className="relative shrink-0">
+          <div
+            className="h-[52px] w-[52px] overflow-hidden rounded-2xl"
+            style={{ boxShadow: "0 0 0 2px rgba(26,115,235,0.32), 0 0 0 4px rgba(26,115,235,0.07)" }}
+          >
+            <img
+              src={r.image}
+              alt={`Portrait of ${r.name}`}
+              loading="lazy"
+              width={256}
+              height={256}
+              className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <span
+            className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full border-[2px] border-[var(--color-surface-2)]"
+            style={{ background: "#34C759" }}
+            aria-hidden
+          >
+            <svg viewBox="0 0 8 8" className="h-2 w-2" fill="none">
+              <path d="M1.5 4L3 5.5L6.5 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold text-ink">{r.name}</p>
+          <p className="mt-0.5 flex items-center gap-1.5 truncate text-xs text-ink-muted">
+            <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-primary/70" />
+            <span className="truncate">{r.project}</span>
+          </p>
+        </div>
+      </figcaption>
+    </figure>
+  );
+}
 
 function Testimonials() {
   return (
     <section className="border-t border-border bg-surface py-24 md:py-32">
       <div className="container-x">
-        <SectionHead eyebrow="Testimonials" title="What our clients say about working with us." />
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <SectionHead eyebrow="Client Testimonials" title="What our clients say about working with us." />
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {REVIEWS.map((r, i) => (
-            <figure
-              key={r.name}
-              data-cursor="hover"
-              className="reveal group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-2 p-7 transition-all duration-500 hover:-translate-y-1.5 hover:scale-[1.01] hover:border-ink/70 hover:shadow-[0_40px_70px_-30px_rgba(17,17,17,0.22)]"
-              style={{ transitionDelay: `${i * 90}ms` }}
-            >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-3 -top-3 text-ink/5 transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary/30"
-              >
-                <Quote className="h-24 w-24" strokeWidth={1} />
-              </span>
-              <div className="relative flex items-center gap-1 text-primary">
-                {Array.from({ length: r.rating }).map((_, k) => (
-                  <Star key={k} className="h-4 w-4 fill-current" strokeWidth={0} />
-                ))}
-              </div>
-              <blockquote className="relative mt-5 font-display text-lg font-medium leading-snug text-ink">
-                “{r.quote}”
-              </blockquote>
-              <figcaption className="relative mt-8 flex items-center gap-4 border-t border-border pt-6">
-                <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-background">
-                  <img
-                    src={r.image}
-                    alt={`Portrait of ${r.name}`}
-                    loading="lazy"
-                    width={768}
-                    height={768}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-ink">{r.name}</p>
-                  <p className="text-xs text-ink-muted">
-                    {r.role} · {r.company}
-                  </p>
-                </div>
-              </figcaption>
-            </figure>
+            <div key={r.name} className="reveal" style={{ transitionDelay: `${i * 70}ms` }}>
+              <TestimonialCard r={r} />
+            </div>
           ))}
         </div>
       </div>
@@ -1787,7 +1793,7 @@ function Testimonials() {
 }
 
 
-/* ----------------------------- tech stack ----------------------------- */
+/* ----------------------------- tech stack -----------------------------/* ----------------------------- tech stack -----------------------------
 
 const STACK: { group: string; items: string[] }[] = [
   { group: "Frontend", items: ["React", "Next.js", "TypeScript"] },
@@ -1904,10 +1910,11 @@ function FinalCTA() {
     <section className="bg-background py-16 md:py-24">
       <div className="container-x">
         <div
-          className="relative overflow-hidden rounded-3xl px-8 py-16 md:px-16 md:py-24 transition-colors duration-300
-            bg-[linear-gradient(135deg,#111111_0%,#1c1c2e_60%,#2a1a4a_100%)] text-background
-            dark:bg-none dark:bg-[#F4F0E8] dark:text-[#111111]
-            dark:shadow-[0_50px_120px_-30px_rgba(26,115,235,0.45)] dark:ring-1 dark:ring-black/5"
+          className="relative overflow-hidden rounded-3xl px-8 py-16 text-background transition-colors duration-300 md:px-16 md:py-24
+            bg-[linear-gradient(135deg,#111111_0%,#172033_58%,#1A73EB_140%)]
+            shadow-[0_40px_100px_-45px_rgba(17,17,17,0.45)]
+            dark:bg-[linear-gradient(135deg,#111827_0%,#161B22_55%,#0B0F14_100%)]
+            dark:text-[#F9FAFB] dark:shadow-[0_50px_120px_-30px_rgba(0,0,0,0.85)] dark:ring-1 dark:ring-white/10"
         >
           <div
             aria-hidden
@@ -1915,31 +1922,27 @@ function FinalCTA() {
             style={{ background: "linear-gradient(135deg, #1A73EB, #34C755)" }}
           />
           <div className="relative max-w-3xl">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-background/60 dark:text-[#111]/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-background/60 dark:text-[#D1D5DB]">
               Let's build
             </p>
             <h2 className="font-display text-4xl font-bold leading-[1.05] md:text-6xl">
               Ready to build something exceptional?
             </h2>
-            <p className="mt-6 max-w-xl text-base text-background/70 dark:text-[#111]/70 md:text-lg">
+            <p className="mt-6 max-w-xl text-base text-background/70 dark:text-[#D1D5DB] md:text-lg">
               Whether it's a website, app, AI agent, or business automation system, Renoide can help
               bring it to life.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all hover:-translate-y-0.5
-                  bg-background text-ink
-                  dark:bg-[linear-gradient(135deg,#5B6CFF_0%,#7B5CFF_100%)] dark:text-white dark:shadow-[0_15px_40px_-10px_rgba(91,108,255,0.6)]"
+                className="btn-primary magnetic-btn group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium"
               >
                 Book free consultation
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-colors
-                  border border-background/30 text-background hover:bg-background/10
-                  dark:border-[#111]/20 dark:text-[#111] dark:hover:bg-[#111]/5"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-background/30 px-7 py-3.5 text-sm font-medium text-background transition-colors hover:bg-background/10 dark:border-white/30 dark:text-white dark:hover:bg-white/10"
               >
                 Start your project
               </a>
@@ -2167,7 +2170,7 @@ function Contact() {
             <span className="font-medium text-ink">Typically responds within 24 hours</span>
           </div>
           <ul className="mt-8 space-y-5">
-            <ContactItem icon={Mail} label="Email" value="hello@renoide.com" />
+            <ContactItem icon={Mail} label="Email" value="mail.renoide@gmail.com" href="mailto:mail.renoide@gmail.com" />
             <ContactItem icon={Phone} label="Phone" value="+91 85729 01073" />
             <ContactItem icon={Phone} label="Phone" value="+91 91403 86492" />
             <ContactItem icon={MapPin} label="Location" value="India · Working worldwide" />
@@ -2238,12 +2241,14 @@ function ContactItem({
   icon: Icon,
   label,
   value,
+  href,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
   value: string;
+  href?: string;
 }) {
-  return (
+  const inner = (
     <li className="flex items-center gap-4">
       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-border bg-surface-2 text-ink">
         <Icon className="h-4 w-4" />
@@ -2254,6 +2259,14 @@ function ContactItem({
       </div>
     </li>
   );
+  if (href) {
+    return (
+      <a href={href} className="block transition-opacity hover:opacity-75">
+        {inner}
+      </a>
+    );
+  }
+  return inner;
 }
 
 function Field({
@@ -2406,7 +2419,6 @@ export default function Landing() {
       <Nav dark={dark} toggle={toggle} />
       <main>
         <Hero />
-        <TrustBar />
         <TrustLogos />
         <div className="section-divider" aria-hidden />
         <Services onLearn={setActiveService} />

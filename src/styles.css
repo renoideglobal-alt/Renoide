@@ -53,7 +53,7 @@
   --surface-2: #FFFFFF;
   --foreground: #1A1A1A;
   --ink: #1A1A1A;
-  --ink-muted: #555555;
+  --ink-muted: #666666;
 
   --card: #FFFFFF;
   --card-foreground: #1A1A1A;
@@ -71,48 +71,74 @@
   --brand-2: #34C755;
 
   --muted: #F2EEE7;
-  --muted-foreground: #555555;
+  --muted-foreground: #666666;
   --accent: #1A1A1A;
   --accent-foreground: #FFFFFF;
   --destructive: #E55353;
   --destructive-foreground: #FFFFFF;
-  --border: #E8E4DD;
-  --input: #E8E4DD;
-  --ring: #5B6CFF;
+  --border: #E5E1D9;
+  --input: #E5E1D9;
+  --ring: #1A73EB;
+
+  /* Premium shadow tokens */
+  --shadow-card: 0 2px 12px rgba(26, 26, 26, 0.06), 0 1px 3px rgba(26, 26, 26, 0.04);
+  --shadow-card-hover: 0 20px 60px -20px rgba(26, 26, 26, 0.18), 0 4px 16px rgba(26, 26, 26, 0.06);
+  --shadow-card-lift: 0 40px 80px -30px rgba(26, 26, 26, 0.22), 0 8px 24px rgba(26, 26, 26, 0.06);
+  --shadow-blue: 0 20px 60px -20px rgba(26, 115, 235, 0.35);
+  --shadow-green: 0 20px 60px -20px rgba(52, 199, 85, 0.35);
 }
 
+/* ============================================================
+   PREMIUM DARK MODE — Superlist / Linear / Vercel inspired
+   ============================================================ */
 .dark {
-  --background: #0E1117;
-  --surface: #161B22;
-  --surface-2: #1F2633;
-  --foreground: #F8F8F8;
-  --ink: #F8F8F8;
-  --ink-muted: #A5A5A5;
+  --background: #0B0F14;
+  --surface: #111827;
+  --surface-2: #161B22;
+  --foreground: #F9FAFB;
+  --ink: #F9FAFB;
+  --ink-muted: #D1D5DB;
 
   --card: #161B22;
-  --card-foreground: #F8F8F8;
+  --card-foreground: #F9FAFB;
   --popover: #161B22;
-  --popover-foreground: #F8F8F8;
+  --popover-foreground: #F9FAFB;
 
-  --primary: #4A90F5;
+  --primary: #1A73EB;
   --primary-foreground: #FFFFFF;
-  --secondary: #1F2633;
-  --secondary-foreground: #F8F8F8;
+  --secondary: #1F2937;
+  --secondary-foreground: #F9FAFB;
 
-  --brand-blue: #4A90F5;
-  --brand-green: #4ED27A;
-  --brand: #4A90F5;
-  --brand-2: #34C755;
+  --brand-blue: #1A73EB;
+  --brand-green: #34C759;
+  --brand: #1A73EB;
+  --brand-2: #34C759;
 
-  --muted: #1F2633;
-  --muted-foreground: #A5A5A5;
-  --accent: #F8F8F8;
-  --accent-foreground: #0E1117;
+  --muted: #1F2937;
+  --muted-foreground: #9CA3AF;
+  --accent: #F9FAFB;
+  --accent-foreground: #0B0F14;
   --destructive: #FF6B6B;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #6D7BFF;
+  --border: rgba(249, 250, 251, 0.09);
+  --input: rgba(249, 250, 251, 0.12);
+  --ring: #1A73EB;
+
+  /* Dark mode premium shadows — deep depth, intentional elevation */
+  --shadow-card:       0 0 0 1px rgba(255,255,255,0.04) inset,
+                       0 1px 0 rgba(255,255,255,0.06) inset,
+                       0 12px 40px -16px rgba(0,0,0,0.85);
+  --shadow-card-hover: 0 0 0 1px rgba(255,255,255,0.07) inset,
+                       0 1px 0 rgba(255,255,255,0.08) inset,
+                       0 24px 64px -20px rgba(0,0,0,0.95),
+                       0 0 0 1px rgba(26,115,235,0.14);
+  --shadow-card-lift:  0 0 0 1px rgba(255,255,255,0.09) inset,
+                       0 1px 0 rgba(255,255,255,0.10) inset,
+                       0 40px 80px -24px rgba(0,0,0,1),
+                       0 0 0 1px rgba(26,115,235,0.18),
+                       0 0 32px rgba(26,115,235,0.10);
+  --shadow-blue:  0 20px 60px -20px rgba(26, 115, 235, 0.50);
+  --shadow-green: 0 20px 60px -20px rgba(52, 199, 89, 0.40);
 }
 
 @layer base {
@@ -129,6 +155,18 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transition: background-color 0.4s ease, color 0.4s ease;
+    position: relative;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -143,62 +181,171 @@
   max-width: 80rem;
 }
 
+/* ============================================================
+   DOT-GRID BACKGROUND
+   ============================================================ */
+.dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(26, 26, 26, 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.dark .dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
 @keyframes floaty {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(0.5deg); }
+  66%       { transform: translateY(-4px) rotate(-0.5deg); }
 }
 @keyframes floaty-slow {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes pulse-dot {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.15); }
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.2); }
 }
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 @keyframes orbit {
   from { transform: rotate(0deg) translateX(var(--orbit-r, 120px)) rotate(0deg); }
   to   { transform: rotate(360deg) translateX(var(--orbit-r, 120px)) rotate(-360deg); }
 }
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.35; transform: scale(1); }
-  50%      { opacity: 0.6;  transform: scale(1.08); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 0.55; transform: scale(1.06); }
 }
 @keyframes particle-rise {
-  0%   { transform: translateY(0) scale(1);   opacity: 0; }
-  20%  { opacity: 0.7; }
-  100% { transform: translateY(-180px) scale(0.6); opacity: 0; }
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  20%  { opacity: 0.6; }
+  100% { transform: translateY(-180px) scale(0.5); opacity: 0; }
 }
 
-@utility animate-floaty { animation: floaty 6s ease-in-out infinite; }
-@utility animate-floaty-slow { animation: floaty-slow 8s ease-in-out infinite; }
-@utility animate-fade-up { animation: fade-up 0.7s ease-out both; }
-@utility animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
-@utility animate-glow-pulse { animation: glow-pulse 6s ease-in-out infinite; }
+/* ---- Infinite Marquee ---- */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
 
-/* Scroll-reveal helpers */
+/* ---- Hero ring orbits ---- */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes spin-slow-reverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* ---- Connecting line draw ---- */
+@keyframes line-draw {
+  from { stroke-dashoffset: 400; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ---- Stagger badge pop ---- */
+@keyframes badge-pop {
+  0%   { opacity: 0; transform: scale(0.88) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ---- Hero trust item ---- */
+@keyframes trust-slide {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- Accordion expand ---- */
+@keyframes accordion-open {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Cursor ring expand ---- */
+@keyframes cursor-enter {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ============================================================
+   ANIMATION UTILITIES
+   ============================================================ */
+@utility animate-floaty        { animation: floaty 7s ease-in-out infinite; }
+@utility animate-floaty-slow   { animation: floaty-slow 9s ease-in-out infinite; }
+@utility animate-fade-up       { animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility animate-fade-in       { animation: fade-in 0.4s ease both; }
+@utility animate-pulse-dot     { animation: pulse-dot 2.2s ease-in-out infinite; }
+@utility animate-glow-pulse    { animation: glow-pulse 6s ease-in-out infinite; }
+@utility animate-spin-slow     { animation: spin-slow 18s linear infinite; }
+@utility animate-spin-slow-rev { animation: spin-slow-reverse 24s linear infinite; }
+
+/* ============================================================
+   SCROLL-REVEAL HELPERS
+   ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
-.reveal-left { transform: translateX(-24px); }
-.reveal-left.is-visible { transform: translateX(0); }
-.reveal-right { transform: translateX(24px); }
-.reveal-right.is-visible { transform: translateX(0); }
-.reveal-scale { transform: scale(0.96); }
-.reveal-scale.is-visible { transform: scale(1); }
 
-/* Section divider — subtle gradient hairline */
+.reveal-left  { opacity: 0; transform: translateX(-28px); transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); will-change: opacity, transform; }
+.reveal-left.is-visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right { opacity: 0; transform: translateX(28px); transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); will-change: opacity, transform; }
+.reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale { opacity: 0; transform: scale(0.94); transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); will-change: opacity, transform; }
+.reveal-scale.is-visible { opacity: 1; transform: scale(1); }
+
+/* ============================================================
+   INFINITE MARQUEE
+   ============================================================ */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 32s) linear infinite;
+  will-change: transform;
+}
+.marquee-track-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse var(--marquee-duration, 36s) linear infinite;
+  will-change: transform;
+}
+.marquee-wrapper {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+.marquee-wrapper:hover .marquee-track,
+.marquee-wrapper:hover .marquee-track-reverse {
+  animation-play-state: paused;
+}
+
+/* ============================================================
+   SECTION DIVIDER
+   ============================================================ */
 .section-divider {
   height: 1px;
   width: 100%;
@@ -206,33 +353,427 @@
     90deg,
     transparent 0%,
     var(--color-border) 20%,
-    color-mix(in oklab, var(--brand) 35%, transparent) 50%,
+    color-mix(in oklab, var(--brand) 30%, transparent) 50%,
     var(--color-border) 80%,
     transparent 100%
   );
 }
 
-/* Premium cursor — hide native cursor on fine pointers (modal excluded via .modal-scope) */
+/* ============================================================
+   PREMIUM CARDS
+   ============================================================ */
+.card-premium {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-2xl);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+.card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-lift);
+  border-color: rgba(26, 26, 26, 0.25);
+}
+.dark .card-premium:hover {
+  border-color: rgba(249, 250, 251, 0.16);
+}
+
+/* Dark mode card elevation — clearly visible cards */
+.dark .card-premium,
+.dark .testimonial-card {
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0) 60%),
+    #161B22;
+  border-color: rgba(255, 255, 251, 0.09);
+}
+
+/* Dark mode section backgrounds */
+.dark .bg-surface {
+  background-color: #111827;
+}
+.dark .bg-surface-2 {
+  background-color: #161B22;
+}
+
+/* Dark mode section override — ensures no muddy grey */
+.dark section.border-t {
+  border-top-color: rgba(249, 250, 251, 0.07);
+}
+
+/* ============================================================
+   PREMIUM BUTTONS
+   ============================================================ */
+.btn-primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #1A73EB 0%, #1560C8 50%, #1A73EB 100%);
+  background-size: 200% 100%;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.10) inset,
+    0 1px 0 rgba(255,255,255,0.18) inset,
+    0 14px 34px -12px rgba(26, 115, 235, 0.75),
+    0 4px 12px -4px rgba(26, 115, 235, 0.35);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    background-position 0.4s ease;
+}
+.btn-primary:hover {
+  background-position: 100% 0;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.12) inset,
+    0 1px 0 rgba(255,255,255,0.20) inset,
+    0 18px 44px -12px rgba(26, 115, 235, 0.90),
+    0 0 28px rgba(26, 115, 235, 0.28),
+    0 4px 14px -4px rgba(26, 115, 235, 0.40);
+}
+
+.btn-secondary {
+  color: var(--color-ink);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+.btn-secondary:hover {
+  border-color: color-mix(in oklab, var(--color-ink) 40%, transparent);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Dark mode secondary — crisp white outlined button */
+.dark .btn-secondary {
+  color: #F9FAFB;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 2px 8px rgba(0,0,0,0.3);
+}
+.dark .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 4px 16px rgba(0,0,0,0.4),
+    0 0 16px rgba(255,255,255,0.04);
+}
+
+/* ============================================================
+   MAGNETIC BUTTON BASE
+   ============================================================ */
+.magnetic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* ============================================================
+   PREMIUM DARK MODE SECTION TREATMENT
+   Light: warm beige alternating
+   Dark: clearly layered #0B0F14 / #111827 / #161B22
+   ============================================================ */
+
+/* bg-background sections stay at #0B0F14 in dark */
+.dark .bg-background,
+.dark section.bg-background { background-color: #0B0F14; }
+
+/* bg-surface sections at #111827 */
+.dark .bg-surface,
+.dark section.bg-surface { background-color: #111827; }
+
+/* Cards and elevated elements at #161B22 */
+.dark .bg-surface-2,
+.dark .rounded-2xl.bg-surface-2,
+.dark .rounded-3xl.bg-surface-2 {
+  background-color: #161B22;
+}
+
+/* Input fields in dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #111827 !important;
+  color: #F9FAFB !important;
+  border-color: rgba(249, 250, 251, 0.12) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #6B7280 !important;
+}
+
+/* ============================================================
+   PREMIUM CURSOR — hide native cursor on fine pointers
+   ============================================================ */
 @media (pointer: fine) {
-  html:not(:has(.modal-scope)), body:not(:has(.modal-scope)) { cursor: none; }
   html, body { cursor: none; }
-  a:not(.modal-scope *),
-  button:not(.modal-scope *),
-  [role="button"]:not(.modal-scope *),
-  input:not(.modal-scope *),
-  textarea:not(.modal-scope *),
-  select:not(.modal-scope *),
-  label:not(.modal-scope *),
-  [data-cursor]:not(.modal-scope *) { cursor: none; }
-  /* Inside modal: restore native cursor */
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  label,
+  [data-cursor] { cursor: none; }
   .modal-scope { cursor: default; }
   .modal-scope button,
   .modal-scope a,
   .modal-scope [role="button"] { cursor: pointer; }
 }
 
+/* ── Cursor wrapper ──────────────────────────────────── */
+.custom-cursor {
+  /* Light mode defaults */
+  --cursor-ring-color:  rgba(20, 20, 20, 0.80);
+  --cursor-ring-bg:     transparent;
+  --cursor-dot-color:   rgba(15, 15, 15, 0.92);
+  --cursor-glow:        rgba(26, 115, 235, 0.00);
+
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+}
+
+/* Dark mode cursor colors — high visibility */
+.dark .custom-cursor {
+  --cursor-ring-color:  rgba(249, 250, 251, 0.88);
+  --cursor-ring-bg:     transparent;
+  --cursor-dot-color:   rgba(249, 250, 251, 0.95);
+  --cursor-glow:        rgba(26, 115, 235, 0.00);
+}
+
+/* ── Outer ring — slow, smooth follow ────────────────── */
+.custom-cursor__ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--cursor-ring-color);
+  background: var(--cursor-ring-bg);
+  box-shadow: 0 0 0 0 transparent;
+  will-change: transform, width, height, border-color, background, box-shadow;
+  transition:
+    width        200ms cubic-bezier(0.22, 1, 0.36, 1),
+    height       200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease,
+    background   200ms ease,
+    box-shadow   200ms ease,
+    opacity      150ms ease;
+}
+
+/* ── Inner dot — fast, crisp follow ─────────────────── */
+.custom-cursor__dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--cursor-dot-color);
+  will-change: transform, width, height, background, opacity;
+  transition:
+    width        160ms cubic-bezier(0.22, 1, 0.36, 1),
+    height       160ms cubic-bezier(0.22, 1, 0.36, 1),
+    background   160ms ease,
+    opacity      150ms ease;
+}
+
+/* ── Hover state — ring expands, dot becomes blue ────── */
+.custom-cursor__pointer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 22px;
+  opacity: 0;
+  background: var(--cursor-dot-color);
+  clip-path: polygon(0 0, 0 78%, 31% 60%, 46% 100%, 64% 92%, 49% 54%, 88% 54%);
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.22));
+  will-change: transform, opacity, background;
+  transition:
+    opacity 150ms ease,
+    background 180ms ease,
+    filter 180ms ease;
+}
+.dark .custom-cursor__pointer {
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.55));
+}
+
+.custom-cursor.is-hover .custom-cursor__ring {
+  width: 46px;
+  height: 46px;
+  border-color: rgba(26, 115, 235, 0.85);
+  background: rgba(26, 115, 235, 0.07);
+  box-shadow:
+    0 0 0 1px rgba(26, 115, 235, 0.12),
+    0 0 20px rgba(26, 115, 235, 0.18);
+}
+.dark .custom-cursor.is-hover .custom-cursor__ring {
+  border-color: rgba(26, 115, 235, 0.90);
+  background: rgba(26, 115, 235, 0.10);
+  box-shadow:
+    0 0 0 1px rgba(26, 115, 235, 0.18),
+    0 0 28px rgba(26, 115, 235, 0.25);
+}
+
+.custom-cursor.is-hover .custom-cursor__dot {
+  width: 4px;
+  height: 4px;
+  opacity: 0;
+}
+.custom-cursor.is-hover .custom-cursor__pointer {
+  opacity: 1;
+  background: #1A73EB;
+}
+
+/* ── Click / mousedown state ─────────────────────────── */
+.custom-cursor.is-down .custom-cursor__ring {
+  width: 28px;
+  height: 28px;
+  opacity: 0.75;
+  border-color: #1A73EB;
+}
+.custom-cursor.is-down .custom-cursor__dot {
+  width: 4px;
+  height: 4px;
+  opacity: 0.80;
+}
+.custom-cursor.is-down .custom-cursor__pointer {
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.28));
+}
+
+/* ============================================================
+   TESTIMONIAL CARD
+   ============================================================ */
+.testimonial-card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  border-radius: 1.25rem;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Dark mode testimonial card */
+.dark .testimonial-card {
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.00) 60%),
+    #161B22;
+  border-color: rgba(249, 250, 251, 0.09);
+}
+.dark .testimonial-card:hover {
+  border-color: rgba(26, 115, 235, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(26,115,235,0.12),
+    0 24px 64px -20px rgba(0,0,0,0.90),
+    0 0 24px rgba(26,115,235,0.10);
+}
+
+/* ============================================================
+   FOUNDER CARD TILT
+   ============================================================ */
+.founder-card {
+  transform-style: preserve-3d;
+  perspective: 800px;
+  transition:
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   FAQ ACCORDION SMOOTH
+   ============================================================ */
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-body.open {
+  grid-template-rows: 1fr;
+}
+.faq-body-inner {
+  overflow: hidden;
+}
+
+/* ============================================================
+   PROCESS LINE ANIMATION
+   ============================================================ */
+.process-line {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.process-line.is-visible {
+  stroke-dashoffset: 0;
+}
+
+/* ============================================================
+   SERVICE CARD NUMBER BG
+   ============================================================ */
+.service-card-number {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 1rem;
+  font-family: var(--font-display);
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-border);
+  text-stroke: 1px var(--color-border);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.4s ease, -webkit-text-stroke-color 0.4s ease;
+}
+
+/* ============================================================
+   DARK MODE CARD ARTICLE OVERRIDES (services, whytrust, etc.)
+   ============================================================ */
+.dark article.rounded-2xl,
+.dark article.rounded-3xl {
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.00) 60%),
+    #161B22;
+  border-color: rgba(249, 250, 251, 0.09);
+}
+.dark article.rounded-2xl:hover,
+.dark article.rounded-3xl:hover {
+  border-color: rgba(26, 115, 235, 0.22);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .animate-floaty, .animate-floaty-slow, .animate-glow-pulse,
-  .animate-pulse-dot, .reveal { animation: none !important; transition: none !important; }
-  .reveal { opacity: 1 !important; transform: none !important; }
+  .animate-pulse-dot, .reveal, .reveal-left, .reveal-right, .reveal-scale,
+  .marquee-track, .marquee-track-reverse, .testimonial-track {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .testimonial-track {
+    flex-wrap: wrap;
+  }
 }

@@ -16,8 +16,8 @@ export const Route = createFileRoute("/")({
         content:
           "A modern technology agency for startups and businesses. Custom websites, apps, AI agents and automation.",
       },
-      { property: "og:image", content: "/og-image.png" },
-      { name: "twitter:image", content: "/og-image.png" },
+      { property: "og:image", content: "/renoide-logo.png" },
+      { name: "twitter:image", content: "/renoide-logo.png" },
     ],
   }),
   component: Landing,
